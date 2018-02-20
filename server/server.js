@@ -3,14 +3,14 @@ require('./config/config');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
-const {ObjectID} = require('mongodb');
+const { ObjectID } = require('mongodb');
 
 
 const { mongoose } = require('./db/mongoose');
 const { Todo } = require('./models/todo');
-const { SimpleEvent } = require('./models/simple-event');
+const { Event } = require('./models/event');
 const { User } = require('./models/user');
-const {authenticate} = require('./middleware/authenticate');
+const { authenticate } = require('./middleware/authenticate');
 
 const app = express();
 
@@ -33,23 +33,39 @@ app.post('/todos', authenticate, (req, res) =>{
 
 });
 
-app.post('/simpleEvent', (req, res) =>{
+app.post('/event', (req, res) =>{
 
-    simpleEvent = new SimpleEvent({
+    const event = new Event({
         title: req.body.title,
         description: req.body.description,
+        info: req.body.info,
         miniatureURL: req.body.miniatureURL,
         imageURL: req.body.imageURL,
         dateUp: req.body.dateUp,
-        dateDown: req.body.dateDown
+        dateDown: req.body.dateDown,
+        generalLoc: req.body.generalLoc,
+        specificLoc: req.body.generalLoc
     });
 
-    simpleEvent.save().then((doc)=>{
+    event.save().then((doc)=>{
         res.send(doc);
     }, (e) => {
         res.status(400).send(e);
     });
 });
+
+app.get('/events', (req, res) => {
+ Event.find({generalLoc: req.query.generalLoc}).then((events) => {
+     res.send({events});
+ }, (e) => {
+     res.status(400).send(e);
+ });
+});
+
+// app.get('/events', (req, res) => {
+//     console.log(req.query.generalLoc, req.query.specificLoc);
+//     res.send(req.query);
+// });
 
 
 app.get('/todos',authenticate, (req, res) => {
