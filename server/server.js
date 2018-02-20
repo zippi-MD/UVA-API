@@ -8,6 +8,7 @@ const {ObjectID} = require('mongodb');
 
 const { mongoose } = require('./db/mongoose');
 const { Todo } = require('./models/todo');
+const { SimpleEvent } = require('./models/simple-event');
 const { User } = require('./models/user');
 const {authenticate} = require('./middleware/authenticate');
 
@@ -30,6 +31,24 @@ app.post('/todos', authenticate, (req, res) =>{
         res.status(400).send(e);
     });
 
+});
+
+app.post('/simpleEvent', (req, res) =>{
+
+    simpleEvent = new SimpleEvent({
+        title: req.body.title,
+        description: req.body.description,
+        miniatureURL: req.body.miniatureURL,
+        imageURL: req.body.imageURL,
+        dateUp: req.body.dateUp,
+        dateDown: req.body.dateDown
+    });
+
+    simpleEvent.save().then((doc)=>{
+        res.send(doc);
+    }, (e) => {
+        res.status(400).send(e);
+    });
 });
 
 
