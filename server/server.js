@@ -12,6 +12,8 @@ const { Event } = require('./models/event');
 const { User } = require('./models/user');
 const { authenticate } = require('./middleware/authenticate');
 
+const { getLocation } = require('./events/localization');
+
 const app = express();
 
 const port = process.env.PORT;
@@ -55,17 +57,15 @@ app.post('/event', (req, res) =>{
 });
 
 app.get('/events', (req, res) => {
+    getLocation(req.query.lat, req.query.lon);
  Event.find({generalLoc: req.query.generalLoc}).then((events) => {
-     res.send({events});
+     res.send('todo bien');
  }, (e) => {
      res.status(400).send(e);
  });
 });
 
-// app.get('/events', (req, res) => {
-//     console.log(req.query.generalLoc, req.query.specificLoc);
-//     res.send(req.query);
-// });
+
 
 
 app.get('/todos',authenticate, (req, res) => {
