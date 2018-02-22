@@ -1,11 +1,11 @@
 const { locations } = require('../models/locations');
 
 const getLocation = function (lat, lon) {
-    console.log('lat: ' + lat + ' lon: ' + lon);
     uva_lugar_mas_cercano(lat, lon);
+    return uva_lugar;
 };
 
-var uva_lugar = "";
+var uva_lugar;
 var uva_distancia;
 var coordenadasGeolocalizacion = locations;
 
@@ -43,7 +43,6 @@ function uva_lugar_mas_cercano(x_coordinate, y_coordinate){
     let distance_from_places = [];
     let max_distance = 2500;
 
-    console.log('Calculando las distancias.');
     for (let counter = 0; counter < coordenadasGeolocalizacion.length; counter++) {
         let distance_value = distancia_entre_coordenadas(x_coordinate, y_coordinate, coordenadasGeolocalizacion[counter].lat, coordenadasGeolocalizacion[counter].lon);
         distance_from_places.push([distance_value, coordenadasGeolocalizacion[counter]]);

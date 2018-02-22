@@ -13,6 +13,7 @@ const { User } = require('./models/user');
 const { authenticate } = require('./middleware/authenticate');
 
 const { getLocation } = require('./events/localization');
+const { getEvents } = require('./events/retieve');
 
 const app = express();
 
@@ -39,14 +40,12 @@ app.post('/event', (req, res) =>{
 
     const event = new Event({
         title: req.body.title,
-        description: req.body.description,
+        phrase: req.body.phrase,
         info: req.body.info,
-        miniatureURL: req.body.miniatureURL,
-        imageURL: req.body.imageURL,
+        img: req.body.imageURL,
         dateUp: req.body.dateUp,
         dateDown: req.body.dateDown,
-        generalLoc: req.body.generalLoc,
-        specificLoc: req.body.generalLoc
+        loc: req.body.loc
     });
 
     event.save().then((doc)=>{
@@ -57,12 +56,9 @@ app.post('/event', (req, res) =>{
 });
 
 app.get('/events', (req, res) => {
-    getLocation(req.query.lat, req.query.lon);
- Event.find({generalLoc: req.query.generalLoc}).then((events) => {
-     res.send('todo bien');
- }, (e) => {
-     res.status(400).send(e);
- });
+    const uva_lugar = getLocation(req.query.lat, req.query.lon);
+    getEvents(uva_lugar.gloc);
+
 });
 
 

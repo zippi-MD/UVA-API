@@ -2,7 +2,7 @@
 const locations = [
     {
         gloc: 'cu',
-        sloc: 'ing'
+        sloc: 'ing',
         name: 'Anexo de Ingeniería',
         img: 'http://3.bp.blogspot.com/-T-hvKKgw5Cs/TjyRBx81G0I/AAAAAAAACqI/aMIZ-gAcm4E/s1600/ol2.jpg',
         lat: 19.326249,
