@@ -40,6 +40,7 @@ app.post('/event', (req, res) =>{
 
     const event = new Event({
         title: req.body.title,
+        type: req.body.type,
         phrase: req.body.phrase,
         info: req.body.info,
         img: req.body.imageURL,
@@ -57,7 +58,9 @@ app.post('/event', (req, res) =>{
 
 app.get('/events', (req, res) => {
     const uva_lugar = getLocation(req.query.lat, req.query.lon);
-    getEvents(uva_lugar.gloc);
+    getEvents(uva_lugar.gloc, uva_lugar.sloc, res, (res, events) => {
+        res.status(200).send(events);
+    });
 
 });
 
