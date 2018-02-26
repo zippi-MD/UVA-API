@@ -14,6 +14,7 @@ const { authenticate } = require('./middleware/authenticate');
 
 const { getLocation } = require('./events/localization');
 const { getEvents } = require('./events/retieve');
+const { user_secret_key} = require('./secret-keys/user_create');
 
 const app = express();
 
@@ -36,7 +37,7 @@ app.post('/todos', authenticate, (req, res) =>{
 
 });
 
-app.post('/event', (req, res) =>{
+app.post('/event', authenticate, (req, res) =>{
 
     const event = new Event({
         title: req.body.title,
@@ -46,7 +47,8 @@ app.post('/event', (req, res) =>{
         img: req.body.imageURL,
         dateUp: req.body.dateUp,
         dateDown: req.body.dateDown,
-        loc: req.body.loc
+        loc: req.body.loc,
+        _creator: req.user._id
     });
 
     event.save().then((doc)=>{
@@ -54,17 +56,16 @@ app.post('/event', (req, res) =>{
     }, (e) => {
         res.status(400).send(e);
     });
+
 });
 
-app.get('/events', (req, res) => {
+app.get('/events', authenticate, (req, res) => {
     const uva_lugar = getLocation(req.query.lat, req.query.lon);
     getEvents(uva_lugar.gloc, uva_lugar.sloc, res, (res, events) => {
-        res.status(200).send(events);
+        res.status(200).send({events});
     });
 
 });
-
-
 
 
 app.get('/todos',authenticate, (req, res) => {
@@ -109,48 +110,24 @@ app.delete('/todos/:id', authenticate, (req, res) => {
     }).catch((err) => res.status(400).send());
 });
 
-
-app.patch('/todos/:id', authenticate, (req, res) => {
-    let id = req.params.id;
-    let body = _.pick(req.body, ['text', 'completed']);
-
-    if(!ObjectID.isValid(id)){
-        return res.status(404).send();
-    }
-
-    if(_.isBoolean(body.completed) && body.completed){
-        body.completedAt = new Date().getTime();
-    } else {
-        body.completed = false;
-        body.completedAt = null;
-    }
-
-    Todo.findOneAndUpdate({_id: id, _creator: req.user._id}, {$set: body}, {new: true}).then((todo) => {
-
-        if(!todo){
-
-            return res.status(404).send();
-        }
-        res.send({todo});
-
-    }).catch((e) => {
-        res.status(400).send();
-    })
-
-});
-
 app.post('/users', (req, res) => {
-    let body = _.pick(req.body, ['email', 'password']);
-    let user = new User(body);
+    let key = _.pick(req.body, 'key');
 
+    if(key.key !== user_secret_key.key){
+        res.status(400).send('Ño, puto');
+    }
+    else{
+        let body = _.pick(req.body, ['user_name', 'password', 'locations']);
+        let user = new User(body);
+        user.save().then(() => {
+            return user.generateAuthToken();
+        }).then((token) => {
+            res.header('x-auth', token).send(user);
+        }).catch((e) => {
+            res.status(400).send(e);
+        })
+    }
 
-    user.save().then(() => {
-        return user.generateAuthToken();
-    }).then((token) => {
-        res.header('x-auth', token).send(user);
-    }).catch((e) => {
-        res.status(400).send(e);
-    })
 });
 
 
@@ -163,9 +140,10 @@ app.post('/users/login', (req, res) => {
    let body = _.pick(req.body, ['email', 'password']);
 
    User.findByCredentials(body.email, body.password).then((user) => {
-        return user.generateAuthToken().then((token) => {
-            res.header('x-auth', token).send(user);
-        });
+        // return user.generateAuthToken().then((token) => {
+        //     res.header('x-auth', token).send(user);
+        // });
+       res.status(200).header('x-auth', user.tokens[0].token).send();
    }).catch((e) => {
         res.status(400).send();
    });
@@ -181,8 +159,10 @@ app.delete('/users/me/token', authenticate, (req, res) => {
    });
 });
 
+
 app.listen(port, () => {
     console.log(`Started up at port ${port}`);
+    console.log('Date: ' + new Date);
 });
 
 module.exports = {

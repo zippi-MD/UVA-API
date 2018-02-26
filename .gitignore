@@ -67,6 +67,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+secret-keys/
 
 # Typescript v1 declaration files
 typings/
