@@ -7,7 +7,6 @@ const { ObjectID } = require('mongodb');
 
 
 const { mongoose } = require('./db/mongoose');
-const { Todo } = require('./models/todo');
 const { Event } = require('./models/event');
 const { User } = require('./models/user');
 const { authenticate } = require('./middleware/authenticate');
@@ -44,7 +43,7 @@ app.post('/event', authenticate, (req, res) =>{
 
 });
 
-app.get('/events', authenticate, (req, res) => {
+app.get('/events', (req, res) => {
     const uva_lugar = getLocation(req.query.lat, req.query.lon);
     getEvents(uva_lugar.gloc, uva_lugar.sloc, res, (res, events) => {
         res.status(200).send({events});
