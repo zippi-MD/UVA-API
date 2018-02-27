@@ -114,6 +114,7 @@ app.post('/users/login', (req, res) => {
         // return user.generateAuthToken().then((token) => {
         //     res.header('x-auth', token).send(user);
         // });
+       res.setHeader('Access-Control-Expose-Headers', 'x-auth');
        res.status(200).header('x-auth', user.tokens[0].token).send({"locations": user.locations});
    }).catch((e) => {
         res.status(400).send();
