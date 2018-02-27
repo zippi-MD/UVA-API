@@ -13,11 +13,11 @@ const { authenticate } = require('./middleware/authenticate');
 
 const { getLocation } = require('./events/localization');
 const { getEvents } = require('./events/retieve');
-const { user_secret_key} = require('./secret-keys/user_create');
 
 const app = express();
 
 const port = process.env.PORT;
+const user_key = process.env.USER_SECRET_KEY;
 
 app.use(bodyParser.json());
 
@@ -82,8 +82,8 @@ app.delete('/events/:id', authenticate, (req, res) => {
 app.post('/users', (req, res) => {
     let key = _.pick(req.body, 'key');
 
-    if(key.key !== user_secret_key.key){
-        res.status(400).send('Ño, puto');
+    if(key.key !== user_key){
+        res.status(400).send();
     }
     else{
         let body = _.pick(req.body, ['user_name', 'password', 'locations']);
