@@ -4,6 +4,7 @@ const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { ObjectID } = require('mongodb');
+var cors = require('cors');
 
 
 const { mongoose } = require('./db/mongoose');
@@ -18,6 +19,8 @@ const app = express();
 
 const port = process.env.PORT;
 const user_key = process.env.USER_SECRET_KEY;
+
+app.use(cors({origin: '*'}));
 
 app.use(bodyParser.json());
 
