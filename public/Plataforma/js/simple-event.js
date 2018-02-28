@@ -194,7 +194,7 @@ function sendToUVA() {
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json",
-                "x-auth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTk1ODI4YzY1YmVlMjAwMTQ0ZjRmNmQiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTE5NzQ3NzI0fQ.XbcTmAiSH8IFHnHdTAdIa6uBFtgSNX4INuPN0I5PpHU",
+                "x-auth": sessionStorage.getItem('x-auth'),
                 "Cache-Control": "no-cache"
             },
             "processData": false,
