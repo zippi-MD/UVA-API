@@ -15,13 +15,16 @@ const { authenticate } = require('./middleware/authenticate');
 const { getLocation } = require('./events/localization');
 const { getEvents } = require('./events/retieve');
 
+const path = require('path');
+const publicPath = path.join(__dirname, '../public/Plataforma');
+
 const app = express();
 
 const port = process.env.PORT;
 const user_key = process.env.USER_SECRET_KEY;
 
 app.use(cors({origin: '*'}));
-
+app.use(express.static(publicPath));
 app.use(bodyParser.json());
 
 app.post('/event', authenticate, (req, res) =>{
