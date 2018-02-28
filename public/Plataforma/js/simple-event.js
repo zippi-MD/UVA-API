@@ -204,6 +204,7 @@ function sendToUVA() {
 
         $.ajax(settings).done(function (response) {
             loader.style.visibility = 'hidden';
+            location.href = "./select-event.html"
         });
 
 
