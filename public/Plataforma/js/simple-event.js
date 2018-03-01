@@ -181,8 +181,8 @@ function validateResponse(response){
 }
 
 function sendToUVA() {
-    uvaObject.info.img = miniaturaImg.link;
-    uvaObject.imageURL = img.link;
+    uvaObject.info.img = img.link;
+    uvaObject.imageURL = miniaturaImg.link;
     if(typeof uvaObject.imageURL === "undefined" || typeof uvaObject.info.img === "undefined"){
 
     }else{
