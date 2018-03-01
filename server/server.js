@@ -65,7 +65,7 @@ app.get('/events/user', authenticate, (req, res) => {
             return res.status(404).send();
         }
 
-        return res.send({events});
+        return res.status(200).send({events});
     }).catch((e) => res.status(400).send());
 
 });

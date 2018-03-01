@@ -1,10 +1,7 @@
-const { mongoose } = require('mongoose');
-const { objectID } = require('mongodb');
-
 const { Event } = require('../models/event');
 
-var generalEvents = {events: undefined};
-var specificEvents = {events: undefined};
+const generalEvents = {events: undefined};
+const specificEvents = {events: undefined};
 var all_events = {
     gEvents: undefined,
     sEvents: undefined,
@@ -17,6 +14,12 @@ var callbackf = undefined;
 
 
 const getEvents = function(gloc, sloc, res, callback){
+
+    all_events.gEvents = undefined;
+    all_events.sEvents = undefined;
+    all_events.aEvents = undefined;
+    all_events.fEvents = [];
+
     response = res;
     callbackf = callback;
      getEventsFor(gloc, generalEvents);
@@ -28,7 +31,7 @@ function getEventsFor(location, savePath){
         savePath.events = info;
         combineEvents()
     }, (e) => {
-        console.log(error);
+        console.log(e);
     });
 }
 
@@ -39,6 +42,7 @@ function combineEvents() {
      if(typeof(all_events.gEvents.events) !== 'undefined' && typeof(all_events.sEvents.events) !== 'undefined'){
          all_events.aEvents = all_events.gEvents.events.concat(all_events.sEvents.events);
          getActiveEvents(all_events.aEvents);
+
      }
 
 }
