@@ -56,6 +56,7 @@ app.get('/events', (req, res) => {
             events,
             'location':{
                 'name': location.name,
+                'phrase': location.phrase,
                 'img': location.img
             }
         });
