@@ -51,8 +51,14 @@ app.post('/event', authenticate, (req, res) =>{
 
 app.get('/events', (req, res) => {
     const uva_lugar = getLocation(req.query.lat, req.query.lon);
-    getEvents(uva_lugar.gloc, uva_lugar.sloc, res, (res, events) => {
-        res.status(200).send({events});
+    getEvents(uva_lugar, res, (res, events, location) => {
+        res.status(200).send({
+            events,
+            'location':{
+                'name': location.name,
+                'img': location.img
+            }
+        });
     });
 
 });

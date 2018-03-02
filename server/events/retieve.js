@@ -11,19 +11,21 @@ var all_events = {
 
 var response = undefined;
 var callbackf = undefined;
+var location = undefined;
 
 
-const getEvents = function(gloc, sloc, res, callback){
+const getEvents = function(loc, res, callback){
 
     all_events.gEvents = undefined;
     all_events.sEvents = undefined;
     all_events.aEvents = undefined;
     all_events.fEvents = [];
+    location = loc;
 
     response = res;
     callbackf = callback;
-     getEventsFor(gloc, generalEvents);
-     getEventsFor(sloc, specificEvents);
+     getEventsFor(location.gloc, generalEvents);
+     getEventsFor(location.sloc, specificEvents);
 };
 
 function getEventsFor(location, savePath){
@@ -56,7 +58,7 @@ function getActiveEvents(events){
         }
     }
 
-    callbackf(response, all_events.fEvents);
+    callbackf(response, all_events.fEvents, location);
 }
 
 module.exports = {
