@@ -10,7 +10,7 @@ const locations = [
         lon: -99.18266,
         markers: [
             {
-                title: 'Bathroom',
+                title: 'Baños',
                 phrase: 'Baño del edificio I',
                 img: 'bathroom',
                 latitude: 19.326501,
