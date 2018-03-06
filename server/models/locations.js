@@ -25,7 +25,16 @@ const locations = [
         phrase: 'Celebrando 225 años formando ingenieros.',
         img: 'https://regeneracion.mx/wp-content/uploads/2017/03/ingenier%C3%ADa-unam.jpg',
         lat: 19.331674,
-        lon: -99.184739
+        lon: -99.184739,
+        markers: [
+            {
+                title: 'Bathroom',
+                phrase: 'Baño del edificio A',
+                img: 'bathroom',
+                latitude: 19.331429,
+                longitude: -99.184327
+            }
+        ]
     }
 ];
 
