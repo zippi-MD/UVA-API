@@ -91,7 +91,7 @@ document.querySelector('#submit').addEventListener('click', function () {
     uvaObject.phrase = elementos.frase;
     uvaObject.loc_name = elementos.ubicacion_name;
 
-    console.log(uvaObject);
+    
 
     loaderLabel.textContent = 'Cargando imagenes...';
 

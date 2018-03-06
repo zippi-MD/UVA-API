@@ -58,7 +58,8 @@ app.get('/events', (req, res) => {
             'location':{
                 'name': location.name,
                 'phrase': location.phrase,
-                'img': location.img
+                'img': location.img,
+                'markers': location.markers
             }
         });
     });
