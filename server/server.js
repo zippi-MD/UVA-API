@@ -38,6 +38,7 @@ app.post('/event', authenticate, (req, res) =>{
         dateUp: req.body.dateUp,
         dateDown: req.body.dateDown,
         loc: req.body.loc,
+        loc_name: req.body.loc_name,
         _creator: req.user._id
     });
 

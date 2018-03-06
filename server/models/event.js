@@ -9,6 +9,7 @@ var Event = mongoose.model('Event',{
     dateUp: {type: Number, require: true, minlength: 1, trim: true},
     dateDown: {type: Number, require: true, minlength: 1, trim: true},
     loc: {type: String, require: true, minlength: 1, trim: true},
+    loc_name: {type: String, require: true, minlength: 1, trim: true},
     _creator: { type: mongoose.Schema.Types.ObjectId, required: true}
 });
 

@@ -40,7 +40,8 @@ uvaObject = {
     "imageURL": undefined,
     "dateUp": undefined,
     "dateDown": undefined,
-    "loc": undefined
+    "loc": undefined,
+    "loc_name": undefined
 };
 
 
@@ -65,7 +66,8 @@ document.querySelector('#submit').addEventListener('click', function () {
         fechaSubida: Date.parse(document.querySelector('#fecha-subida').value),
         fechaBajada: Date.parse(document.querySelector('#fecha-bajada').value),
         ubicacion: document.querySelector('#ubicacion').value,
-        link: document.querySelector('#link').value
+        link: document.querySelector('#link').value,
+        ubicacion_name: document.querySelector('#ubicacion').selectedOptions[0].text
     };
 
     loaderLabel.textContent = 'Verificando los datos...';
@@ -87,6 +89,7 @@ document.querySelector('#submit').addEventListener('click', function () {
     uvaObject.loc = elementos.ubicacion;
     uvaObject.info.info_link = elementos.link;
     uvaObject.phrase = elementos.frase;
+    uvaObject.loc_name = elementos.ubicacion_name;
 
     console.log(uvaObject);
 
