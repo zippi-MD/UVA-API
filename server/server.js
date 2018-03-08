@@ -9,10 +9,11 @@ var cors = require('cors');
 
 const { mongoose } = require('./db/mongoose');
 const { Event } = require('./models/event');
+const { Location } = require('./models/locations');
 const { User } = require('./models/user');
 const { authenticate } = require('./middleware/authenticate');
 
-const { getLocation } = require('./events/localization');
+const { getNearestLocation } = require('./events/localization');
 const { getEvents } = require('./events/retieve');
 
 const path = require('path');
@@ -51,18 +52,23 @@ app.post('/event', authenticate, (req, res) =>{
 });
 
 app.get('/events', (req, res) => {
-    const uva_lugar = getLocation(req.query.lat, req.query.lon);
-    getEvents(uva_lugar.location, uva_lugar.default_events, res, (res, events, location) => {
-        res.status(200).send({
-            events,
-            'location':{
-                'name': location.name,
-                'phrase': location.phrase,
-                'img': location.img,
-                'markers': location.markers
-            }
+    Location.getLocations().then((locations) => {
+        const uva_lugar = getNearestLocation(req.query.lat, req.query.lon, locations);
+        getEvents(uva_lugar.location, uva_lugar.default_events, res, (res, events, location) => {
+            res.status(200).send({
+                events,
+                'location':{
+                    'name': location.name,
+                    'phrase': location.phrase,
+                    'img': location.img,
+                    'markers': location.markers
+                }
+            });
         });
+    }).catch((e) => {
+        res.status(400).send();
     });
+
 });
 
 app.get('/events/user', authenticate, (req, res) => {
@@ -106,6 +112,24 @@ app.post('/users', (req, res) => {
             return user.generateAuthToken();
         }).then((token) => {
             res.header('x-auth', token).send(user);
+        }).catch((e) => {
+            res.status(400).send(e);
+        })
+    }
+
+});
+
+app.post('/location', (req, res) => {
+    let key = _.pick(req.body, 'key');
+
+    if(key.key !== user_key){
+        res.status(400).send();
+    }
+    else{
+        let body = _.pick(req.body, ['gloc', 'sloc', 'name', 'phrase', 'img', 'lat', 'lon', 'loc_size', 'markers']);
+        let location = new Location(body);
+        location.save().then(() => {
+            res.status(200).send(location);
         }).catch((e) => {
             res.status(400).send(e);
         })

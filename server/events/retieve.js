@@ -25,7 +25,7 @@ const getEvents = function(loc, default_events, res, callback){
     response = res;
     callbackf = callback;
 
-    if(typeof location.gLoc === 'undefined'){
+    if(typeof location.gloc === 'undefined'){
         callbackf(response, default_events, location);
     }
     else {
@@ -63,7 +63,6 @@ function getActiveEvents(events){
             all_events.fEvents.push(events[i]);
         }
     }
-
     callbackf(response, all_events.fEvents, location);
 }
 
