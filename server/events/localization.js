@@ -2,12 +2,19 @@ const { locations } = require('../models/locations');
 
 const getLocation = function (lat, lon) {
     uva_lugar_mas_cercano(lat, lon);
-    return uva_lugar;
+    return {
+        location: uva_lugar,
+        default_events: default_events
+    };
 };
 
 var uva_lugar;
+default_events = [];
 var uva_distancia;
 var coordenadasGeolocalizacion = locations;
+
+let default_phrase = 'Lo sentimos, te encuentras demasiado lejos de una zona con cobertura, a continuación verás algunos lugares donde puedes utilizar el servicio. \n(Puedes ver la ubicación de estos lugares en la seccion \'mapa\')';
+let default_img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Amatl%C3%A1n_de_Quetzalc%C3%B3atl%2C_Morelos_M%C3%A9xico_-_panoramio.jpg/1280px-Amatl%C3%A1n_de_Quetzalc%C3%B3atl%2C_Morelos_M%C3%A9xico_-_panoramio.jpg';
 
 function distancia_entre_coordenadas(lat1, lon1, lat2, lon2){
     let R = 6371; // km (This is the constant for km)
@@ -32,16 +39,15 @@ function comparator(a, b) {
 function meter_to_km(distance) {
     if (distance.toString().length > 3) {
         distance = Math.round(distance / 1000);
-        return distance + ' Kilometros';
+        return distance + ' km';
     } else {
-        return distance + ' Metros';
+        return distance + ' m';
     }
 }
 
 function uva_lugar_mas_cercano(x_coordinate, y_coordinate){
 
     let distance_from_places = [];
-    let max_distance = 2500;
 
     for (let counter = 0; counter < coordenadasGeolocalizacion.length; counter++) {
         let distance_value = distancia_entre_coordenadas(x_coordinate, y_coordinate, coordenadasGeolocalizacion[counter].lat, coordenadasGeolocalizacion[counter].lon);
@@ -49,17 +55,44 @@ function uva_lugar_mas_cercano(x_coordinate, y_coordinate){
     }
 
     distance_from_places = distance_from_places.sort(this.comparator);
-    // console.log(distance_from_places[0][1]);
 
-    if(distance_from_places[0][0] < max_distance){
+    if(distance_from_places[0][0] < distance_from_places[0][1].loc_size){
         uva_lugar = distance_from_places[0][1];
         uva_distancia = meter_to_km(distance_from_places[0][0]);
     }
     else {
-        uva_lugar = 'default';
+        uva_lugar = {
+            name: ':/',
+            phrase: default_phrase,
+            img: default_img,
+            markers: []
+        };
+
+        var markers = [];
+        default_events = [];
+
+        for(var i = 0; i < distance_from_places.length && i < 5; i++){
+            let location = distance_from_places[i][1];
+            let distance = distance_from_places[i][0];
+            markers.push({
+                title: location.name,
+                phrase: location.phrase,
+                latitude: location.lon,
+                longitude: location.lon
+            });
+            default_events.push({
+                title: location.name,
+                phrase: location.phrase,
+                img: location.img,
+                distance: meter_to_km(distance),
+                type: 'default'
+            });
+        }
+
+        uva_lugar.markers = markers;
+
     }
 
-    return distance_from_places;
 
 }
 

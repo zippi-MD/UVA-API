@@ -14,7 +14,7 @@ var callbackf = undefined;
 var location = undefined;
 
 
-const getEvents = function(loc, res, callback){
+const getEvents = function(loc, default_events, res, callback){
 
     all_events.gEvents = undefined;
     all_events.sEvents = undefined;
@@ -24,8 +24,14 @@ const getEvents = function(loc, res, callback){
 
     response = res;
     callbackf = callback;
-     getEventsFor(location.gloc, generalEvents);
-     getEventsFor(location.sloc, specificEvents);
+
+    if(typeof location.gLoc === 'undefined'){
+        callbackf(response, default_events, location);
+    }
+    else {
+        getEventsFor(location.gloc, generalEvents);
+        getEventsFor(location.sloc, specificEvents);
+    }
 };
 
 function getEventsFor(location, savePath){

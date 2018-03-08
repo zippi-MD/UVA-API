@@ -52,7 +52,7 @@ app.post('/event', authenticate, (req, res) =>{
 
 app.get('/events', (req, res) => {
     const uva_lugar = getLocation(req.query.lat, req.query.lon);
-    getEvents(uva_lugar, res, (res, events, location) => {
+    getEvents(uva_lugar.location, uva_lugar.default_events, res, (res, events, location) => {
         res.status(200).send({
             events,
             'location':{
@@ -63,7 +63,6 @@ app.get('/events', (req, res) => {
             }
         });
     });
-
 });
 
 app.get('/events/user', authenticate, (req, res) => {
