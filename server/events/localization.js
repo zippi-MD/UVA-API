@@ -6,7 +6,7 @@ var uva_distancia;
 var coordenadasGeolocalizacion;
 let default_title = 'Lo sentimos, te encuentras demasiado lejos de una zona con cobertura.';
 let default_phrase = 'A continuación apareceran los lugares más cercanos a ti con cobertura, puedes ver su posición exacta en el mapa.';
-let default_img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Amatl%C3%A1n_de_Quetzalc%C3%B3atl%2C_Morelos_M%C3%A9xico_-_panoramio.jpg/1280px-Amatl%C3%A1n_de_Quetzalc%C3%B3atl%2C_Morelos_M%C3%A9xico_-_panoramio.jpg';
+let default_img = 'https://www.publicdomainpictures.net/pictures/30000/nahled/evening-landscape-13530956185Aw.jpg';
 
 
 const getNearestLocation = function (lat, lon, locations) {
