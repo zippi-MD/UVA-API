@@ -5,8 +5,8 @@ default_events = [];
 var uva_distancia;
 var coordenadasGeolocalizacion;
 let default_title = 'Lo sentimos, te encuentras demasiado lejos de una zona con cobertura.';
-let default_phrase = 'A continuación apareceran los lugares más cercanos a ti con cobertura, puedes ver su posición exacta en el mapa.';
-let default_img = 'https://www.publicdomainpictures.net/pictures/30000/nahled/evening-landscape-13530956185Aw.jpg';
+let default_phrase = 'A continuación apareceran los lugares más cercanos a ti con cobertura, puedes ver su posición exacta en el mapa haciendo click en su tarjeta.';
+let default_img = 'https://images.pexels.com/photos/435737/pexels-photo-435737.jpeg?w=940&h=650&auto=compress&cs=tinysrgb';
 
 
 const getNearestLocation = function (lat, lon, locations) {
