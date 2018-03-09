@@ -4,7 +4,8 @@ var uva_lugar;
 default_events = [];
 var uva_distancia;
 var coordenadasGeolocalizacion;
-let default_phrase = 'Lo sentimos, te encuentras demasiado lejos de una zona con cobertura, a continuación verás algunos lugares donde puedes utilizar el servicio. \n(Puedes ver la ubicación de estos lugares en la seccion \'mapa\')';
+let default_title = 'Lo sentimos, te encuentras demasiado lejos de una zona con cobertura.';
+let default_phrase = 'A continuación verás algunos lugares donde puedes utilizar el servicio. \n(Puedes ver la ubicación de estos lugares en la seccion \'mapa\')';
 let default_img = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Amatl%C3%A1n_de_Quetzalc%C3%B3atl%2C_Morelos_M%C3%A9xico_-_panoramio.jpg/1280px-Amatl%C3%A1n_de_Quetzalc%C3%B3atl%2C_Morelos_M%C3%A9xico_-_panoramio.jpg';
 
 
@@ -66,13 +67,20 @@ function uva_lugar_mas_cercano(x_coordinate, y_coordinate){
     else {
         uva_lugar = {
             name: ':/',
-            phrase: default_phrase,
             img: default_img,
             markers: []
         };
 
         var markers = [];
         default_events = [];
+
+        default_events.push({
+            title: default_title,
+            phrase: default_phrase,
+            img: '',
+            type: 'note'
+        });
+
 
         for(var i = 0; i < distance_from_places.length && i < 5; i++){
             let location = distance_from_places[i][1];
