@@ -89,8 +89,11 @@ function uva_lugar_mas_cercano(x_coordinate, y_coordinate){
                 title: location.name,
                 phrase: location.phrase,
                 img: '',
-                latitude: location.lat,
-                longitude: location.lon
+                location: {
+                    latitude: location.lat,
+                    longitude: location.lon
+                }
+
             });
             default_events.push({
                 title: location.name,
