@@ -35,7 +35,7 @@ app.post('/event', authenticate, (req, res) =>{
         type: req.body.type,
         phrase: req.body.phrase,
         info: req.body.info,
-        img: req.body.imageURL,
+        img: req.body.img,
         dateUp: req.body.dateUp,
         dateDown: req.body.dateDown,
         loc: req.body.loc,
