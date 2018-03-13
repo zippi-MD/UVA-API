@@ -59,6 +59,8 @@ function uva_lugar_mas_cercano(x_coordinate, y_coordinate){
     }
 
     distance_from_places = distance_from_places.sort(this.comparator);
+    console.log('*****');
+    console.log(distance_from_places)
     console.log(parseInt(distance_from_places[0][0]));
     console.log(parseInt(distance_from_places[0][1].loc_size));
     console.log(parseInt(distance_from_places[0][0]) < parseInt(distance_from_places[0][1].loc_size));
