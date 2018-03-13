@@ -23,6 +23,7 @@ const app = express();
 
 const port = process.env.PORT;
 const user_key = process.env.USER_SECRET_KEY;
+const actual_app_version = process.env.ACTUAL_APP_VERSION;
 
 app.use(cors({origin: '*'}));
 app.use(express.static(publicPath));
@@ -53,10 +54,13 @@ app.post('/event', authenticate, (req, res) =>{
 
 app.get('/events', (req, res) => {
     Location.getLocations().then((locations) => {
+        app_version = parseFloat(req.query.app);
+        let update = app_version < actual_app_version ? true : false;
         const uva_lugar = getNearestLocation(req.query.lat, req.query.lon, locations);
         getEvents(uva_lugar.location, uva_lugar.default_events, res, (res, events, location) => {
             res.status(200).send({
                 events,
+                'update': update,
                 'location':{
                     'name': location.name,
                     'phrase': location.phrase,
