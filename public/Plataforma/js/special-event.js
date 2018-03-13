@@ -11,30 +11,20 @@ $('.datepicker').pickadate({
 const loader = document.querySelector('#loader');
 const loaderLabel = document.querySelector('#loader-text');
 loaderLabel.textContent = 'Verificando tus credenciales... \n';
+locations = JSON.parse(sessionStorage.getItem('locations'));
 
-var locations = JSON.parse(sessionStorage.getItem('locations'));
 
 var option = $('<option disabled selected></option>').attr("value", "").text("Selecciona una Ubicación");
 $("#ubicacion").empty().append(option);
 
-
 for(var i = 0; i < locations.length; i++){
-    option = $('<option></option>').attr("value", JSON.stringify(locations[i])).text(locations[i].name);
+    option = $('<option></option>').attr("value", locations[i].id).text(locations[i].name);
     $("#ubicacion").append(option);
- }
+}
 
 $(document).ready(function() {
-    $('#ubicacion').change(function() {
-
-        let place = JSON.parse($(this).val()).locations;
-
-        var option = $('<option disabled selected></option>').attr("value", "").text("Selecciona un lugar (Opcional)");
-        $("#lugar").empty().append(option);
-
-        for(var i = 0; i < place.length; i++){
-            option = $('<option></option>').attr("value", JSON.stringify(place[i])).text(place[i].title);
-            $("#lugar").append(option);
-        }
+    $('#dropdown1').change(function() {
+        alert($(this).val());
     });
 });
 
@@ -46,10 +36,9 @@ loaderLabel.textContent = 'Cargando...';
 uvaObject = {
     "title": undefined,
     "phrase": undefined,
-    "type": "simple",
+    "type": "special",
     "info": {
-        "description": undefined,
-        "img": undefined,
+
         "info_link": undefined
     },
     "img": undefined,
@@ -68,55 +57,45 @@ document.querySelector('#submit').addEventListener('click', function () {
     loader.style.visibility = 'visible';
 
     var miniatura;
-    var principal;
 
     miniatura = document.querySelector('#img-miniatura');
-    principal = document.querySelector('#img-principal');
 
 
     var elementos = {
         titulo: document.querySelector('#titulo').value.trim(),
         frase: document.querySelector('#frase').value,
-        descripcion: document.querySelector('#info').value,
         fechaSubida: Date.parse(document.querySelector('#fecha-subida').value),
         fechaBajada: Date.parse(document.querySelector('#fecha-bajada').value),
         ubicacion: document.querySelector('#ubicacion').value,
         link: document.querySelector('#link').value,
-        ubicacion_name: document.querySelector('#ubicacion').selectedOptions[0].text,
-        lugar: document.querySelector('#lugar').value
+        ubicacion_name: document.querySelector('#ubicacion').selectedOptions[0].text
     };
 
     loaderLabel.textContent = 'Verificando los datos...';
 
-    
+
     const camposValidados = validarCampos(elementos);
 
     if(!camposValidados.status){
-       displayAlert(camposValidados.message);
-       return
+        displayAlert(camposValidados.message);
+        return
     }
 
 
     uvaObject.title = elementos.titulo;
-    uvaObject.type = "simple";
-    uvaObject.info.description = elementos.descripcion;
+    uvaObject.type = "special";
     uvaObject.dateUp = elementos.fechaSubida;
     uvaObject.dateDown = elementos.fechaBajada;
-    uvaObject.loc = JSON.parse(elementos.ubicacion).id;
+    uvaObject.loc = elementos.ubicacion;
     uvaObject.info.info_link = elementos.link;
     uvaObject.phrase = elementos.frase;
     uvaObject.loc_name = elementos.ubicacion_name;
 
-    if(elementos.lugar !== ''){
-        uvaObject.info.site = JSON.parse(elementos.lugar);
-    }
 
-    
 
     loaderLabel.textContent = 'Cargando imagenes...';
 
     subirImagen(miniatura, "Miniatura", miniaturaImg);
-    subirImagen(principal, "Principal", img);
 
 
 });
@@ -137,7 +116,7 @@ function validarCampos(campos){
 function subirImagen(path, imageName, urlPath){
 
     if(path.files[0] === undefined){
-        response = displayConfirm('No hay imagen seleccionada para '+ imageName+'. ¿Deseas continuar?');
+        response = displayConfirm('No hay imagen seleccionada. ¿Deseas continuar?');
         if(response){
             urlPath.link = '';
             sendToUVA()
@@ -145,6 +124,7 @@ function subirImagen(path, imageName, urlPath){
         else{
             return {status: false, message: "No hay " + imageName}
         }
+
     }
 
     var settings = {
@@ -168,7 +148,8 @@ function subirImagen(path, imageName, urlPath){
         const validatedResponse = validateResponse(response);
         if(validatedResponse.status){
             urlPath.link = validatedResponse.link;
-            sendToUVA()
+            sendToUVA();
+            return
         }
         else{
 
@@ -178,6 +159,7 @@ function subirImagen(path, imageName, urlPath){
     });
 
 }
+
 
 
 function validateResponse(response){
@@ -190,14 +172,12 @@ function validateResponse(response){
 }
 
 function sendToUVA() {
-    uvaObject.info.img = img.link;
     uvaObject.img = miniaturaImg.link;
 
+    if(typeof uvaObject.img === "undefined" ){
 
-    if(typeof uvaObject.img === "undefined" || typeof uvaObject.info.img === "undefined"){
 
     }else{
-        console.log(uvaObject);
         loaderLabel.textContent = 'Guardando en la base de datos';
         var settings = {
             "async": true,

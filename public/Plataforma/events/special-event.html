@@ -10,9 +10,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>UVA - Evento Simple</title>
+    <title>UVA - Evento Especial Test</title>
 </head>
-
 <body>
 
 <div id="loader">
@@ -34,21 +33,18 @@
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper teal">
-            <a href="#!" class="brand-logo uva-margin">UVA - Evento Simple</a>
+            <a href="#!" class="brand-logo uva-margin">UVA - Evento Especial</a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="#">v1.0.0</a></li>
+                <li><a href="#">v1.0.1</a></li>
             </ul>
         </div>
     </nav>
 </div>
 
 <div class="row uva-margin-center">
-    <div class="row">
-    <select class="browser-default col s12 m12" id="ubicacion"></select>
-    </div>
-    <div class="row">
-    <select class="browser-default disabled col s12 m12" id="lugar"></select>
-    </div>
+
+    <select class="browser-default col s12 m12" id="ubicacion">
+    </select>
 
     <div class="input-field col s12 m7">
         <i class="material-icons prefix">title</i>
@@ -62,16 +58,10 @@
         <label for="titulo">Frase (Aparacera debajo del título)</label>
     </div>
 
-    <div class="input-field col s12 m7 uva-margin-top">
-        <i class="material-icons prefix">info</i>
-        <textarea id="info" class="materialize-textarea validate"></textarea>
-        <label for="info">Descipción o información sobre el evento.</label>
-    </div>
-
     <div class="input-field col s12 m7">
         <i class="material-icons prefix">link</i>
         <input id="link" type="text" class="validate">
-        <label for="titulo">Enlace para obtener más información (opcional)</label>
+        <label for="titulo">Enlace al que se desea redirigir</label>
     </div>
 
     <div class="col s12 m6 uva-margin-top">
@@ -98,19 +88,6 @@ del evento">
         </div>
     </div>
 
-    <div class="col s12 m12 uva-margin-top">
-        <div class="file-field input-field">
-            <div class="btn">
-                <span>Seleccionar Imagen Principal</span>
-                <input type="file" id="img-principal" accept="image/*" data-max-size="5000">
-            </div>
-            <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Arrastre o seleccione la imagen principal que desea para la
-del evento">
-            </div>
-        </div>
-    </div>
-
     <div class="col s12 m10"></div>
     <div class="col s12 m2">
         <button class="btn waves-effect waves-light" type="submit" name="action" id="submit">Enviar
@@ -123,6 +100,6 @@ del evento">
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="../js/materialize.min.js"></script>
-<script type="text/javascript" src="../js/simple-event.js"></script>
+<script type="text/javascript" src="../js/special-event.js"></script>
 </body>
 </html>
