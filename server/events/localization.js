@@ -34,11 +34,6 @@ function distancia_entre_coordenadas(lat1, lon1, lat2, lon2){
     return d;
 }
 
-function comparator(a, b) {
-    if (a[0] < b[0]) return -1;
-    if (a[0] > b[0]) return 1;
-    return 0;
-}
 
 function meter_to_km(distance) {
     if (distance.toString().length > 3) {
@@ -58,7 +53,9 @@ function uva_lugar_mas_cercano(x_coordinate, y_coordinate){
         distance_from_places.push([distance_value, coordenadasGeolocalizacion[counter]]);
     }
 
-    distance_from_places = distance_from_places.sort(this.comparator);
+    distance_from_places = distance_from_places.sort(function(a,b) {
+        return a[0] - b[0];
+    });
     console.log('*****');
     console.log(distance_from_places)
     console.log(parseInt(distance_from_places[0][0]));
