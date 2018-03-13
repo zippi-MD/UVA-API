@@ -59,8 +59,10 @@ function uva_lugar_mas_cercano(x_coordinate, y_coordinate){
     }
 
     distance_from_places = distance_from_places.sort(this.comparator);
-
-    if(distance_from_places[0][0] < distance_from_places[0][1].loc_size){
+    console.log(parseInt(distance_from_places[0][0]));
+    console.log(parseInt(distance_from_places[0][1].loc_size));
+    console.log(parseInt(distance_from_places[0][0]) < parseInt(distance_from_places[0][1].loc_size));
+    if(parseInt(distance_from_places[0][0]) < parseInt(distance_from_places[0][1].loc_size)){
         uva_lugar = distance_from_places[0][1];
         uva_distancia = meter_to_km(distance_from_places[0][0]);
     }
