@@ -108,7 +108,7 @@ document.querySelector('#submit').addEventListener('click', function () {
     uvaObject.loc_name = elementos.ubicacion_name;
 
     if(elementos.lugar !== ''){
-        uvaObject.info.site = JSON.parse(elementos.lugar);
+        uvaObject.info.location = JSON.parse(elementos.lugar);
     }
 
     
