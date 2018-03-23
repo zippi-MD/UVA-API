@@ -1,0 +1,73 @@
+
+.typed-console {
+    background-color: black;
+    color: #00FF00;
+}
+
+.typed-dark {
+    background-color: #22313F;
+    color: white;
+}
+
+.typed-light {
+    background-color: white;
+    color: black;
+}
+
+
+.developer-info {
+    z-index: 100000000;
+    position: absolute;
+    display: block;
+    bottom: 1vh;
+    left: 1vw;
+    font-size: 1em;
+}
+
+.typed-cursor-z {
+    opacity: 1;
+    font-weight: 100;
+    -webkit-animation: fade 0.7s infinite;
+    -moz-animation: fade 0.7s infinite;
+    -ms-animation: fade 0.7s infinite;
+    -o-animation: fade 0.7s infinite;
+    animation: fade 0.7s infinite;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 1; }
+    50% {
+        opacity: 0; }
+    100% {
+        opacity: 1; } }
+
+@-webkit-keyframes fade {
+    0% {
+        opacity: 1; }
+    50% {
+        opacity: 0; }
+    100% {
+        opacity: 1; } }
+
+@-moz-keyframes fade {
+    0% {
+        opacity: 1; }
+    50% {
+        opacity: 0; }
+    100% {
+        opacity: 1; } }
+@-ms-keyframes fade {
+    0% {
+        opacity: 1; }
+    50% {
+        opacity: 0; }
+    100% {
+        opacity: 1; } }
+@-o-keyframes fade {
+    0% {
+        opacity: 1; }
+    50% {
+        opacity: 0; }
+    100% {
+        opacity: 1; } }
