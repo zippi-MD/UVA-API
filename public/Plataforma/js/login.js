@@ -1,7 +1,7 @@
 const loader = document.querySelector('#loader');
-const loaderLabel = document.querySelector('#loader-text');
+const alert = document.querySelector('#alert');
 loader.style.visibility = 'hidden';
-
+alert.style.visibility = 'hidden';
 document.querySelector('#submit').addEventListener('click', function () {
 
     loader.style.visibility = 'visible';
@@ -14,8 +14,8 @@ document.querySelector('#submit').addEventListener('click', function () {
     respuesta_validacion = validarCampos(elementos);
 
     if(!respuesta_validacion.status){
-        alert(respuesta_validacion.message);
         loader.style.visibility = 'hidden';
+        sendAlert(respuesta_validacion.message);
         return
     }
 
@@ -43,7 +43,7 @@ document.querySelector('#submit').addEventListener('click', function () {
 
     }).fail(function () {
         loader.style.visibility = 'hidden';
-        alert('No se encontro al usuario o la contraseña es incorrecta');
+        sendAlert('Lo sentimos, el nombre de usuario o la contraseña son incorrectos');
     });
 
 });
@@ -55,4 +55,9 @@ function validarCampos(campos){
     else if(campos.contrasena === ""){return({status: false, message: "El campo 'contraseña' está vacio."})}
     else { return({status: true}) }
 
+}
+
+function sendAlert(text){
+    $('#alert-text').text(text);
+    alert.style.visibility = 'visible'
 }

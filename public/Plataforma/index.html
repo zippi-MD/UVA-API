@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
     <link type="text/css" rel="stylesheet" href="css/loader.css">
     <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/typed-developer.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/uikit.min.css" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>UVA</title>
 </head>
 
-<body>
+<body style="background-color: #433f83; height: 100vh">
 
 <div class="developer-info typed-light">
     <span id="developer"></span><span class="typed-cursor-z">|</span>
@@ -37,31 +39,61 @@
     </div>
 </div>
 
-<div>
-    <div class="input-field col s12">
-        <input id="usuario" type="text" class="validate">
-        <label for="usuario">Usuario</label>
-    </div>
-    <div class="row">
-        <div class="input-field col s12">
-            <input id="contrasena" type="password" class="validate">
-            <label for="contrasena">Contraseña</label>
+<div class="row justify-content-lg-center" id="alert">
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <div class="uk-alert-danger uk-animation-slide-top" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p id="alert-text"></p>
         </div>
     </div>
-    <button class="btn waves-effect waves-light" type="submit" name="action" id="submit">Entrar
-        <i class="material-icons right">send</i>
-    </button>
+</div>
+<div class="row justify-content-center">
+
+    <div class="col-lg-4 col-md-4 col-sm-10 col-10">
+        <div>
+            <br>
+            <br>
+            <br>
+            <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+                <h3 class="uk-card-title">Sistema UVA</h3>
+                <div class="row justify-content-center">
+                    <div class="col-10">
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: user"></span>
+                            <input class="uk-input" type="text" id="usuario">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-center">
+                    <div class="col-10">
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                            <input class="uk-input" type="password" id="contrasena">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-end">
+                    <div class="col-4">
+                        <button class="uk-button uk-button-text" id="submit">Entrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
-
-
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/uikit.min.js"></script>
+<script src="js/uikit-icons.min.js"></script>
+
 <script type="text/javascript" src="js/typed.min.js"></script>
 <script type="text/javascript" src="js/typed-developer.js"></script>
-<script type="text/javascript" src="js/materialize.min.js"></script>
+
 <script type="text/javascript" src="js/login.js"></script>
 </body>
 </html>
