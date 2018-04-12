@@ -1,63 +1,81 @@
 <!DOCTYPE html>
-<html lang="es" >
-
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Seleccionar Evento</title>
-      <link rel="stylesheet" href="../css/event-style.css">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link type="text/css" rel="stylesheet" href="../css/loader.css">
+  <link type="text/css" rel="stylesheet" href="../css/style.css"/>
+
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/uikit.min.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>UVA</title>
 </head>
 
 <body>
 
-<div class="center">
-
-  <figure class="snip1190">
-    <img src="http://telefonorojo.mx/wp-content/uploads/2016/11/Biblioteca-central-UNAM.jpg" />
-    <figcaption>
-      <div class="square">
-        <div></div>
-      </div>
-      <h2>Evento<span> Simple</span></h2>
-      <p>Crear Evento</p>
-    </figcaption>
-    <a href="./simple-event.html"></a>
-  </figure>
-
-  <figure class="snip1190">
-    <img src="https://www.unam.mx/sites/default/files/images/menu/rectoria_unam.jpg" />
-    <figcaption>
-      <div class="square">
-        <div></div>
-      </div>
-      <h2>Evento<span> Combinado</span></h2>
-      <p>Proximamente...</p>
-    </figcaption>
-    <a href="#"></a>
-  </figure>
-
-  <figure class="snip1190">
-    <img src="https://lasillarotarm.blob.core.windows.net.optimalcdn.com/images/2017/09/22/unam_sismo.jpg" />
-    <figcaption>
-      <div class="square">
-        <div></div>
-      </div>
-      <h2>Evento<span> Especial</span></h2>
-      <p>Proximamente...</p>
-    </figcaption>
-    <a href="special-event.html"></a>
-  </figure>
-
+<div class="row">
+  <div class="col-12 dark-purple-gradient uk-sticky uk-sticky-fixed">
+    <div class="uk-container uk-container-expand">
+      <nav class="uk-navbar">
+        <div class="uk-navbar-left">
+          <a href="#" class="uk-navbar-item uk-logo" style="color: white">
+            Sistema UVA
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
 </div>
 
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<div class="row justify-content-center">
+  <div class="col-lg-5 col-md-10 col-sm-10 col-11 uk-margin-top">
+    <div>
+      <div class="uk-card dark-blue-gradient uk-card-body uk-light">
+        <h3 class="uk-card-title">Evento Simple</h3>
+        <p>Este evento incluye una imagen, descripción del evento, así como la posibilidad de agregar el ubicación del lugar y in link externo para mayor información</p>
+        <div class="row justify-content-end">
+          <a class="uk-button uk-button-text" href="./simple-event.html">Crear Evento Simple ></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5 col-md-10 col-sm-10 col-11 uk-margin-top">
+    <div>
+      <div class="uk-card blue-gradient uk-card-body uk-light">
+        <h3 class="uk-card-title">Evento Especial</h3>
+        <p>Este evento sirve para redireccionar a los usuarios (dentro de la misma aplicación) a la página web externa del evento.</p>
+        <div class="row justify-content-end">
+          <a class="uk-button uk-button-text" href="./special-event.html">Crear Evento Especial ></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5 col-md-10 col-sm-10 col-11 uk-margin-top">
+    <div>
+      <div class="uk-card orange-gradient uk-card-body uk-light">
+        <h3 class="uk-card-title">Evento Combinado</h3>
+        <p>Este evento sirve para crear una serie de eventos con una categoria en común, como un ciclo de conferencias.</p>
+        <div class="row justify-content-end">
+          <a class="uk-button uk-button-text" href="#">Proximamente...</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  
-
-    <script  src="../js/select-event.js"></script>
 
 
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/uikit.min.js"></script>
+<script src="../js/uikit-icons.min.js"></script>
 
 
 </body>
-
 </html>

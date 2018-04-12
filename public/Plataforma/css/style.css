@@ -1,3 +1,7 @@
+body {
+    height: 100vh;
+}
+
 .uva-margin {
     margin-left: 20px;
 }
@@ -9,3 +13,26 @@
 .uva-margin-top {
     margin-top: 20px;
 }
+
+.dark-blue-gradient {
+    background: linear-gradient(to left, #28a5f5, #1e87f0);
+}
+
+.dark-purple-gradient {
+    background: linear-gradient(to left, #C6426E, #642B73);
+}
+
+.dark-purple-gradient-bottom {
+    background: linear-gradient(to bottom, #642B73, #C6426E);
+}
+
+.purple-gradient {
+    background: linear-gradient(to left, #d194ff, #9389ff);
+}
+.blue-gradient {
+    background: linear-gradient(to left, #7cbfee, #00d0b8);
+}
+.orange-gradient {
+    background: linear-gradient(to left, #ff77a7, #ff7b7e);
+}
+
