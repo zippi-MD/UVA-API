@@ -55,7 +55,7 @@ app.post('/event', authenticate, (req, res) =>{
 app.get('/events', (req, res) => {
     Location.getLocations().then((locations) => {
         app_version = parseFloat(req.query.app);
-        let update = app_version < actual_app_version ? true : false;
+        let update = app_version < actual_app_version;
         const uva_lugar = getNearestLocation(req.query.lat, req.query.lon, locations);
         getEvents(uva_lugar.location, uva_lugar.default_events, res, (res, events, location) => {
             res.status(200).send({
@@ -111,7 +111,7 @@ app.post('/users', (req, res) => {
         res.status(400).send();
     }
     else{
-        let body = _.pick(req.body, ['user_name', 'password', 'locations']);
+        let body = req.body;
         let user = new User(body);
         user.save().then(() => {
             return user.generateAuthToken();
