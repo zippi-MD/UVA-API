@@ -1,3 +1,7 @@
+body {
+    height: 100vh;
+}
+
 .uva-margin {
     margin-left: 20px;
 }
@@ -16,6 +20,10 @@
 
 .dark-purple-gradient {
     background: linear-gradient(to left, #C6426E, #642B73);
+}
+
+.dark-purple-gradient-bottom {
+    background: linear-gradient(to bottom, #642B73, #C6426E);
 }
 
 .purple-gradient {
