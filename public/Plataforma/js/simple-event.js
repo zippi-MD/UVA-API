@@ -1,11 +1,42 @@
+/* DropArea Miniatura */
+var previewNode = document.querySelector("#template");
+previewNode.id = "";
+var previewTemplate = previewNode.parentNode.innerHTML;
 
-$('.datepicker').pickadate({
-    selectMonths: true,
-    selectYears: 3,
-    today: 'Today',
-    clear: 'Clear',
-    close: 'Ok',
-    closeOnSelect: false
+var myDropzone = new Dropzone("div#miniatura", {
+    url: "/target-url",
+    maxFiles: 1,
+    acceptedFiles: "image/jpeg,image/png,image/gif",
+    thumbnailWidth: 80,
+    thumbnailHeight: 80,
+    parallelUploads: 20,
+    previewTemplate: previewTemplate,
+    autoQueue: false,
+    previewsContainer: "#previews",
+    clickable: ".fileinput-button"
+});
+
+myDropzone.on("addedfile", function(file) {
+    $("#miniatura-drop-area").hide();
+    if (this.files.length > 1) {
+        this.removeFile(this.files[0]);
+    }
+});
+
+myDropzone.on("removedfile", function (file) {
+    $("#miniatura-drop-area").show();
+});
+
+previewNode.parentNode.removeChild(previewNode);
+
+/* -- EndDropArea Miniatura */
+
+
+$('#fecha-subida').pickadate({
+    format: 'mmmm dd, yyyy'
+});
+$('#fecha-bajada').pickadate({
+    format: 'mmmm dd, yyyy'
 });
 
 const loader = document.querySelector('#loader');
@@ -224,12 +255,4 @@ function sendToUVA() {
 
 }
 
-function displayAlert(alertMessage){
-    loader.style.visibility = 'hidden';
-    alert(alertMessage);
-}
 
-function displayConfirm(confirmMessage){
-    loader.style.visibility = 'hidden';
-    return confirm(confirmMessage);
-}
