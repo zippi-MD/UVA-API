@@ -59,5 +59,9 @@ function validarCampos(campos){
 
 function sendAlert(text){
     $('#alert-text').text(text);
-    alert.style.visibility = 'visible'
+    alert.style.visibility = 'visible';
 }
+
+$('#alert-close').click(function(){
+   alert.style.visibility = 'hidden';
+});

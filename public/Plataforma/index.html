@@ -42,8 +42,14 @@
 <div class="row justify-content-lg-center" id="alert">
     <div class="col-lg-9 col-md-12 col-sm-12">
         <div class="uk-alert-danger uk-animation-slide-top" uk-alert>
-            <a class="uk-alert-close" uk-close></a>
-            <p id="alert-text"></p>
+            <div class="row">
+                <div class="col-10">
+                    <p id="alert-text"></p>
+                </div>
+                <div class="col-2 text-right">
+                    <span class="uk-icon" uk-icon="icon: close" id="alert-close"></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
