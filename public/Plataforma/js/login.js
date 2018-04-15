@@ -59,9 +59,10 @@ function validarCampos(campos){
 
 function sendAlert(text){
     $('#alert-text').text(text);
+    $('#alert').removeClass('uk-animation-slide-top');
     alert.style.visibility = 'visible';
 }
 
 $('#alert-close').click(function(){
-   alert.style.visibility = 'hidden';
+   $('#alert').addClass('uk-animation-slide-top uk-animation-reverse');
 });
