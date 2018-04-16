@@ -38,6 +38,21 @@
     </div>
 </div>
 
+<div class="row justify-content-lg-center fixed-top" id="alert">
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <div class="uk-alert-danger uk-animation-slide-top" uk-alert>
+            <div class="row">
+                <div class="col-10">
+                    <p id="alert-text"></p>
+                </div>
+                <div class="col-2 text-right">
+                    <span class="uk-icon" uk-icon="icon: close" id="alert-close"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav class="navbar navbar-dark dark-blue-gradient">
     <a class="navbar-brand" href="#">Evento Simple</a>
     <a class="btn btn-outline-light my-2 my-sm-0" href="select-event.html"><span uk-icon="home"></span></a>
@@ -113,6 +128,10 @@
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div class="offset-8 align-self-end">
+        <button class="uk-button uk-button-primary uk-margin-top" id="submit">Enviar</button>
     </div>
 
 

@@ -40,6 +40,9 @@ $('#fecha-bajada').pickadate({
 });
 
 const loader = document.querySelector('#loader');
+const alert = document.querySelector('#alert');
+$('#alert').hide();
+
 const loaderLabel = document.querySelector('#loader-text');
 loaderLabel.textContent = 'Verificando tus credenciales... \n';
 
@@ -123,7 +126,7 @@ document.querySelector('#submit').addEventListener('click', function () {
     const camposValidados = validarCampos(elementos);
 
     if(!camposValidados.status){
-       displayAlert(camposValidados.message);
+       sendAlert(camposValidados.message);
        return
     }
 
@@ -199,7 +202,8 @@ function subirImagen(path, imageName, urlPath){
         const validatedResponse = validateResponse(response);
         if(validatedResponse.status){
             urlPath.link = validatedResponse.link;
-            sendToUVA()
+            console.log(uvaObject);
+            //sendToUVA()
         }
         else{
 
@@ -256,3 +260,14 @@ function sendToUVA() {
 }
 
 
+function sendAlert(text){
+    loader.style.visibility = 'hidden';
+    $('#alert-text').text(text);
+    $('#alert').removeClass('uk-animation-slide-top');
+    $('#alert').show();
+}
+
+$('#alert-close').click(function(){
+    $('#alert').addClass('uk-animation-slide-top uk-animation-reverse');
+    $('#alert').hide();
+});

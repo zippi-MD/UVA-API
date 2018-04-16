@@ -2,6 +2,7 @@ const loader = document.querySelector('#loader');
 const alert = document.querySelector('#alert');
 loader.style.visibility = 'hidden';
 alert.style.visibility = 'hidden';
+
 document.querySelector('#submit').addEventListener('click', function () {
 
     loader.style.visibility = 'visible';
