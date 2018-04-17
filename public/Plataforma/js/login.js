@@ -2,6 +2,7 @@ const loader = document.querySelector('#loader');
 const alert = document.querySelector('#alert');
 loader.style.visibility = 'hidden';
 alert.style.visibility = 'hidden';
+
 document.querySelector('#submit').addEventListener('click', function () {
 
     loader.style.visibility = 'visible';
@@ -59,5 +60,10 @@ function validarCampos(campos){
 
 function sendAlert(text){
     $('#alert-text').text(text);
-    alert.style.visibility = 'visible'
+    $('#alert').removeClass('uk-animation-slide-top');
+    alert.style.visibility = 'visible';
 }
+
+$('#alert-close').click(function(){
+   $('#alert').addClass('uk-animation-slide-top uk-animation-reverse');
+});

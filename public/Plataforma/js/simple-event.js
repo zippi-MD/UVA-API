@@ -1,14 +1,13 @@
-
-$('.datepicker').pickadate({
-    selectMonths: true,
-    selectYears: 3,
-    today: 'Today',
-    clear: 'Clear',
-    close: 'Ok',
-    closeOnSelect: false
+$('#fecha-subida').pickadate({
+    format: 'mmmm dd, yyyy'
+});
+$('#fecha-bajada').pickadate({
+    format: 'mmmm dd, yyyy'
 });
 
 const loader = document.querySelector('#loader');
+$('#alert').hide();
+
 const loaderLabel = document.querySelector('#loader-text');
 loaderLabel.textContent = 'Verificando tus credenciales... \n';
 
@@ -21,7 +20,7 @@ $("#ubicacion").empty().append(option);
 for(var i = 0; i < locations.length; i++){
     option = $('<option></option>').attr("value", JSON.stringify(locations[i])).text(locations[i].name);
     $("#ubicacion").append(option);
- }
+}
 
 $(document).ready(function() {
     $('#ubicacion').change(function() {
@@ -88,12 +87,12 @@ document.querySelector('#submit').addEventListener('click', function () {
 
     loaderLabel.textContent = 'Verificando los datos...';
 
-    
+
     const camposValidados = validarCampos(elementos);
 
     if(!camposValidados.status){
-       displayAlert(camposValidados.message);
-       return
+        sendAlert(camposValidados.message);
+        return
     }
 
 
@@ -111,15 +110,32 @@ document.querySelector('#submit').addEventListener('click', function () {
         uvaObject.info.location = JSON.parse(elementos.lugar);
     }
 
-    
+
 
     loaderLabel.textContent = 'Cargando imagenes...';
 
-    subirImagen(miniatura, "Miniatura", miniaturaImg);
-    subirImagen(principal, "Principal", img);
-
+    uploadImage('tarjeta del evento', uvaObject, uploadMiniatura);
+    uploadImage('imagen del evento', uvaObject.info, uploadPrincipal)
 
 });
+
+function uploadImage(location, imagePath, callback) {
+
+    if(typeof imagePath.img === 'undefined'){
+
+        if(confirm("No se ha seleccionado una imagen para " + location + " ¿Desea continuar?")){
+            imagePath.img = '';
+            sendToUVA();
+            return
+        }
+        else {
+            loader.style.visibility = "hidden";
+            return
+        }
+
+    }
+    callback();
+}
 
 function validarCampos(campos){
 
@@ -134,70 +150,10 @@ function validarCampos(campos){
 
 }
 
-function subirImagen(path, imageName, urlPath){
-
-    if(path.files[0] === undefined){
-        response = displayConfirm('No hay imagen seleccionada para '+ imageName+'. ¿Deseas continuar?');
-        if(response){
-            urlPath.link = '';
-            sendToUVA()
-        }
-        else{
-            return {status: false, message: "No hay " + imageName}
-        }
-    }
-
-    var settings = {
-
-        "async": true,
-        "crossDomain": true,
-        "url": "https://api.imgur.com/3/image",
-        "method": "POST",
-        "headers": {
-            "Authorization": "Client-ID 4409588f10776f7"
-        },
-        "processData": false,
-        "contentType": false,
-        "mimeType": "multipart/form-data",
-        "data": path.files[0]
-    };
-
-    $.ajax(settings).done(function (response) {
-
-        response = JSON.parse(response);
-        const validatedResponse = validateResponse(response);
-        if(validatedResponse.status){
-            urlPath.link = validatedResponse.link;
-            sendToUVA()
-        }
-        else{
-
-            return {status: false, message: validatedResponse.message}
-        }
-
-    });
-
-}
-
-
-function validateResponse(response){
-    if(response.success){
-        return{status: true, link: response.data.link}
-    }
-    else{
-        return{status: false, message: "Error al subir la imagen"}
-    }
-}
-
 function sendToUVA() {
-    uvaObject.info.img = img.link;
-    uvaObject.img = miniaturaImg.link;
 
+    if(typeof uvaObject.img === "string" && typeof uvaObject.info.img === "string"){
 
-    if(typeof uvaObject.img === "undefined" || typeof uvaObject.info.img === "undefined"){
-
-    }else{
-        console.log(uvaObject);
         loaderLabel.textContent = 'Guardando en la base de datos';
         var settings = {
             "async": true,
@@ -218,18 +174,127 @@ function sendToUVA() {
             loader.style.visibility = 'hidden';
             location.href = "./select-event.html"
         });
-
-
     }
 
 }
 
-function displayAlert(alertMessage){
+
+function sendAlert(text){
     loader.style.visibility = 'hidden';
-    alert(alertMessage);
+    $('#alert-text').text(text);
+    $('#alert').removeClass('uk-animation-slide-top');
+    $('#alert').show();
 }
 
-function displayConfirm(confirmMessage){
-    loader.style.visibility = 'hidden';
-    return confirm(confirmMessage);
+$('#alert-close').click(function(){
+    $('#alert').addClass('uk-animation-slide-top uk-animation-reverse');
+    $('#alert').hide();
+});
+
+// /* DropArea Miniatura */
+var previewMiniaturaNode = document.querySelector("#template-miniatura");
+previewMiniaturaNode.id = "";
+var previewMiniaturaTemplate = previewMiniaturaNode.parentNode.innerHTML;
+
+var miniaturaDropzone = new Dropzone("div#miniatura", {
+    url: "https://api.imgur.com/3/image",
+    paramName: "image",
+    maxFiles: 1,
+    acceptedFiles: "image/*",
+    method: "post",
+    headers:{
+        'Cache-Control': null,
+        'X-Requested-With': null,
+        'Authorization': "Client-ID 4409588f10776f7"
+    },
+    thumbnailWidth: 80,
+    thumbnailHeight: 80,
+    parallelUploads: 20,
+    previewTemplate: previewMiniaturaTemplate,
+    autoQueue: false,
+    previewsContainer: "#previews-miniatura",
+    clickable: ".fileinput-button-miniatura"
+});
+
+miniaturaDropzone.on("addedfile", function(file) {
+    uvaObject.img = true;
+    $("#miniatura-drop-area").hide();
+    if (this.files.length > 1) {
+        this.removeFile(this.files[0]);
+    }
+});
+
+miniaturaDropzone.on("removedfile", function (file){
+    uvaObject.img = true;
+    $("#miniatura-drop-area").show();
+});
+
+miniaturaDropzone.on("success", function(file, serverResponse) {
+    uvaObject.img = serverResponse.data.link;
+    sendToUVA();
+
+});
+
+previewMiniaturaNode.parentNode.removeChild(previewMiniaturaNode);
+
+
+function uploadMiniatura() {
+    console.log('Uploading Miniatura');
+    miniaturaDropzone.enqueueFiles(miniaturaDropzone.getFilesWithStatus(Dropzone.ADDED));
 }
+
+
+// /* -- End DropArea Miniatura */
+
+// /* DropArea Principal */
+var previewPrincipalNode = document.querySelector("#template-principal");
+previewPrincipalNode.id = "";
+var previewPrincipalTemplate = previewPrincipalNode.parentNode.innerHTML;
+
+var principalDropzone = new Dropzone("div#principal", {
+    url: "https://api.imgur.com/3/image",
+    paramName: "image",
+    maxFiles: 1,
+    acceptedFiles: "image/*",
+    method: "post",
+    headers:{
+        'Cache-Control': null,
+        'X-Requested-With': null,
+        'Authorization': "Client-ID 4409588f10776f7"
+    },
+    thumbnailWidth: 80,
+    thumbnailHeight: 80,
+    parallelUploads: 20,
+    previewTemplate: previewPrincipalTemplate,
+    autoQueue: false,
+    previewsContainer: "#previews-principal",
+    clickable: ".fileinput-button-principal"
+});
+
+principalDropzone.on("addedfile", function(file) {
+    uvaObject.info.img = true;
+    $("#principal-drop-area").hide();
+    if (this.files.length > 1) {
+        this.removeFile(this.files[0]);
+    }
+});
+
+principalDropzone.on("removedfile", function (file){
+    uvaObject.img = undefined;
+    $("#principal-drop-area").show();
+});
+
+principalDropzone.on("success", function(file, serverResponse) {
+    uvaObject.info.img = serverResponse.data.link;
+    sendToUVA();
+});
+
+previewPrincipalNode.parentNode.removeChild(previewPrincipalNode);
+
+function uploadPrincipal() {
+    console.log('Uploading Principal');
+    principalDropzone.enqueueFiles(principalDropzone.getFilesWithStatus(Dropzone.ADDED));
+}
+
+// /* -- End DropArea Principal */
+
