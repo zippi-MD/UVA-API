@@ -60,14 +60,27 @@
 
 
 <div class=" row justify-content-center justify-content-lg-start">
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h4 class="uk-margin-top align-text-bottom">¿Donde quieres que aparezca el evento?</h4>
+    </div>
+
     <div class="col-11 col-md-8 offset-lg-1">
-        <select class="uk-select uk-margin-top" id="ubicacion"></select>
+        <select class="uk-select" id="ubicacion"></select>
     </div>
     <div class="col-11 col-md-8 offset-lg-1">
         <select class="uk-select uk-margin-top" id="lugar"></select>
     </div>
+
+    <div class="col-12 col-md-8 offset-lg-1">
+        <hr class="uk-divider-icon uk-margin-top">
+    </div>
+
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h4 class="align-text-bottom">Ingresa la información del evento: </h4>
+    </div>
+
     <div class="col-11 col-md-8 col-lg-8 offset-lg-1">
-        <input class="uk-input uk-margin-top" type="text" placeholder="Título" id="titulo">
+        <input class="uk-input" type="text" placeholder="Título" id="titulo">
     </div>
     <div class="col-11 col-md-8 offset-lg-1">
         <input class="uk-input uk-margin-top" placeholder="Frase (Aparecerá debajo del título)" id="frase">
@@ -78,6 +91,15 @@
     <div class="col-11 col-md-8 offset-lg-1">
         <input class="uk-input uk-margin-top" type="text" placeholder="Link (Opcional)" id="link">
     </div>
+
+    <div class="col-12 col-md-8 offset-lg-1">
+        <hr class="uk-divider-icon uk-margin-top">
+    </div>
+
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h4 class="align-text-bottom">Selecciona las fechas en las que aparecerá el evento:</h4>
+    </div>
+
 
     <div class="col-11 col-md-4 offset-md-1 offset-lg-1">
         <div class="uk-inline uk-margin-top">
@@ -93,8 +115,19 @@
         </div>
     </div>
 
+    <div class="col-12 col-md-8 offset-lg-1">
+        <hr class="uk-divider-icon uk-margin-top">
+    </div>
+
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h4 class="align-text-bottom">Agrega las imágenes para el evento</h4>
+    </div>
+
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h5 class="align-text-bottom">Imagen para la tarjeta</h5>
+    </div>
     <div class="col-11 col-md-4 offset-lg-1" id="miniatura-drop-area">
-        <div class="fileinput-button uk-margin-top">
+        <div class="fileinput-button-miniatura">
             <div class="drop-area" id="miniatura">
                 <div class="content">
                     <span class="uk-icon" uk-icon="icon: cloud-upload"></span>
@@ -105,8 +138,48 @@
     </div>
 
 
-    <div class="col-11 col-lg-8 offset-lg-1" id="previews">
-        <div id="template" class="uk-margin-top">
+    <div class="col-11 col-lg-8 offset-lg-1" id="previews-miniatura">
+        <div id="template-miniatura" class="uk-margin-top">
+            <table class="table">
+                <thead class="dark-blue-gradient text-light">
+                <tr>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tamaño</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="bg-white">
+                <tr>
+                    <td><img data-dz-thumbnail></td>
+                    <td><p data-dz-name></p></td>
+                    <td><p data-dz-size></p></td>
+                    <td><button data-dz-remove class="bg-white">
+                        <span class="uk-icon" uk-icon="icon: close"></span>
+                    </button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h5 class="align-text-bottom uk-margin-top">Imagen del evento</h5>
+    </div>
+    <div class="col-11 col-md-4 offset-lg-1" id="principal-drop-area">
+        <div class="fileinput-button-principal">
+            <div class="drop-area" id="principal">
+                <div class="content">
+                    <span class="uk-icon" uk-icon="icon: cloud-upload"></span>
+                    Arrastra la imagen o haz click <u>aquí</u> para seleccionar una.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-11 col-lg-8 offset-lg-1" id="previews-principal">
+        <div id="template-principal" class="uk-margin-top">
             <table class="table">
                 <thead class="dark-blue-gradient text-light">
                 <tr>
@@ -131,7 +204,7 @@
     </div>
 
     <div class="offset-8 align-self-end">
-        <button class="uk-button uk-button-primary uk-margin-top" id="submit">Enviar</button>
+        <button class="uk-button uk-button-primary uk-margin-top uk-margin-bottom" id="submit">Enviar</button>
     </div>
 
 
