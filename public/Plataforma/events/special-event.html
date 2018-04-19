@@ -4,15 +4,23 @@
     <meta charset="UTF-8">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection"/>
+
+
     <link type="text/css" rel="stylesheet" href="../css/loader.css">
     <link type="text/css" rel="stylesheet" href="../css/style.css" media="screen,projection"/>
 
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/uikit.min.css" />
+    <link rel="stylesheet" href="../css/default.css">
+    <link rel="stylesheet" href="../css/default.date.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>UVA - Evento Especial Test</title>
+    <title>UVA - Evento Especial</title>
 </head>
-<body>
+
+<body class="background-white">
+
 
 <div id="loader">
     <div id="center">
@@ -30,76 +38,148 @@
     </div>
 </div>
 
-<div class="navbar-fixed">
-    <nav>
-        <div class="nav-wrapper teal">
-            <a href="#!" class="brand-logo uva-margin">UVA - Evento Especial</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#">v1.0.1</a></li>
-            </ul>
-        </div>
-    </nav>
-</div>
-
-<div class="row uva-margin-center">
-
-    <select class="browser-default col s12 m12" id="ubicacion">
-    </select>
-
-    <div class="input-field col s12 m7">
-        <i class="material-icons prefix">title</i>
-        <input id="titulo" type="text" class="validate">
-        <label for="titulo">Título</label>
-    </div>
-
-    <div class="input-field col s12 m7">
-        <i class="material-icons prefix">subtitles</i>
-        <input id="frase" type="text" class="validate">
-        <label for="titulo">Frase (Aparacera debajo del título)</label>
-    </div>
-
-    <div class="input-field col s12 m7">
-        <i class="material-icons prefix">link</i>
-        <input id="link" type="text" class="validate">
-        <label for="titulo">Enlace al que se desea redirigir</label>
-    </div>
-
-    <div class="col s12 m6 uva-margin-top">
-        <i class="material-icons prefix">date_range</i>
-        <input type="text" class="datepicker" id="fecha-subida" placeholder="Seleccione la fecha de subida">
-    </div>
-
-    <div class="col s12 m6 uva-margin-top">
-        <i class="material-icons prefix">date_range</i>
-        <input type="text" class="datepicker" id="fecha-bajada" placeholder="Seleccione la fecha de bajada">
-    </div>
-
-
-    <div class="col s12 m12 uva-margin-top">
-        <div class="file-field input-field">
-            <div class="btn">
-                <span>Seleccionar Miniatura</span>
-                <input type="file" id="img-miniatura" accept="image/*" data-max-size="5000">
-            </div>
-            <div class="file-path-wrapper">
-                <input class="file-path validate"  type="text" placeholder="Arrastre o seleccione la imagen que desea para la miniatura
-del evento">
+<div class="row justify-content-lg-center fixed-top" id="alert">
+    <div class="col-lg-9 col-md-12 col-sm-12">
+        <div class="uk-alert-danger uk-animation-slide-top" uk-alert>
+            <div class="row">
+                <div class="col-10">
+                    <p id="alert-text"></p>
+                </div>
+                <div class="col-2 text-right">
+                    <span class="uk-icon" uk-icon="icon: close" id="alert-close"></span>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="col s12 m10"></div>
-    <div class="col s12 m2">
-        <button class="btn waves-effect waves-light" type="submit" name="action" id="submit">Enviar
-            <i class="material-icons right">send</i>
-        </button>
+<nav class="navbar navbar-dark blue-gradient">
+    <a class="navbar-brand" href="#">Evento Especial</a>
+    <a class="btn btn-outline-light my-2 my-sm-0" href="select-event.html"><span uk-icon="home"></span></a>
+</nav>
+
+
+<div class=" row justify-content-center justify-content-lg-start">
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h4 class="uk-margin-top align-text-bottom">¿Donde quieres que aparezca el evento?</h4>
     </div>
+
+    <div class="col-11 col-md-8 offset-lg-1">
+        <select class="uk-select" id="ubicacion"></select>
+    </div>
+
+    <div class="col-12 col-md-8 offset-lg-1">
+        <hr class="uk-divider-icon uk-margin-top">
+    </div>
+
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h4 class="align-text-bottom">Ingresa la información del evento: </h4>
+    </div>
+
+    <div class="col-11 col-md-8 col-lg-8 offset-lg-1">
+        <input class="uk-input" type="text" placeholder="Título" id="titulo">
+    </div>
+    <div class="col-11 col-md-8 offset-lg-1">
+        <input class="uk-input uk-margin-top" placeholder="Frase (Aparecerá debajo del título)" id="frase">
+    </div>
+    <div class="col-11 col-md-8 offset-lg-1">
+        <input class="uk-input uk-margin-top" type="text" placeholder="Link (Opcional)" id="link">
+    </div>
+
+    <div class="col-12 col-md-8 offset-lg-1">
+        <hr class="uk-divider-icon uk-margin-top">
+    </div>
+
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h4 class="align-text-bottom">Selecciona las fechas en las que aparecerá el evento:</h4>
+    </div>
+
+
+    <div class="col-11 col-md-4 offset-md-1 offset-lg-1">
+        <div class="uk-inline uk-margin-top">
+            <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+            <input class="uk-input" type="text" placeholder="Fecha subida" id="fecha-subida">
+        </div>
+    </div>
+
+    <div class="col-11 col-md-4">
+        <div class="uk-inline uk-margin-top">
+            <span class="uk-form-icon" uk-icon="icon: calendar"></span>
+            <input class="uk-input" type="text" placeholder="Fecha bajada" id="fecha-bajada">
+        </div>
+    </div>
+
+    <div class="col-12 col-md-8 offset-lg-1">
+        <hr class="uk-divider-icon uk-margin-top">
+    </div>
+
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h4 class="align-text-bottom">Agrega las imágenes para el evento</h4>
+    </div>
+
+    <div class="col-11 col-lg-8 offset-lg-1">
+        <h5 class="align-text-bottom">Imagen para la tarjeta</h5>
+    </div>
+    <div class="col-11 col-md-4 offset-lg-1" id="miniatura-drop-area">
+        <div class="fileinput-button-miniatura">
+            <div class="drop-area" id="miniatura">
+                <div class="content">
+                    <span class="uk-icon" uk-icon="icon: cloud-upload"></span>
+                    Arrastra la imagen o haz click <u>aquí</u> para seleccionar una.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-11 col-lg-8 offset-lg-1" id="previews-miniatura">
+        <div id="template-miniatura" class="uk-margin-top">
+            <table class="table">
+                <thead class="blue-gradient text-light">
+                <tr>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tamaño</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="bg-white">
+                <tr>
+                    <td><img data-dz-thumbnail></td>
+                    <td><p data-dz-name></p></td>
+                    <td><p data-dz-size></p></td>
+                    <td><button data-dz-remove class="bg-white">
+                        <span class="uk-icon" uk-icon="icon: close"></span>
+                    </button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="offset-8 align-self-end">
+        <button class="uk-button uk-button-primary uk-margin-top uk-margin-bottom" id="submit">Enviar</button>
+    </div>
+
+
+
+
 
 
 </div>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="../js/materialize.min.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/uikit.min.js"></script>
+<script src="../js/uikit-icons.min.js"></script>
+<script src="../js/picker.js"></script>
+<script src="../js/picker.date.js"></script>
+<script src="../js/dropzone.js"></script>
+
 <script type="text/javascript" src="../js/special-event.js"></script>
+
+
 </body>
 </html>
+
