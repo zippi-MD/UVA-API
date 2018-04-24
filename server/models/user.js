@@ -17,6 +17,13 @@ var UserSchema = new mongoose.Schema({
             require: true,
             minlength: 6
     },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 1,
+      unique: true
+    },
     locations: {
         type: Object,
         require: true,
